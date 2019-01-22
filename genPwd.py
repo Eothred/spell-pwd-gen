@@ -21,23 +21,23 @@ pwd_maxlen  = 30
 
 # The following settings defines the unfiltered - filtered list
 # Take out any words from dictionary containing these characters:
-word_filter = './-'
+word_filter = './-"'
 # Only pick from words with at least this length:
-wlen_min    = 5
+wlen_min    = 4
 # Only pick from words with at most this length:
-wlen_max    = 8
+wlen_max    = 10
 
 # End of settings
 
 # ------
 
-# First generate a full list of words from aspell-nb:
-if not os.path.isfile('unfiltered.txt'):
-    cmd = 'aspell -d {0} dump master | aspell -l {0} expand > unfiltered.txt'.format(lang)
-    os.system(cmd)
-
-# Remove words we don't want included..
 if not os.path.isfile('filtered.txt'):
+    # First generate a full list of words from aspell-nb:
+    if not os.path.isfile('unfiltered.txt'):
+        cmd = 'aspell -d {0} dump master | aspell -l {0} expand > unfiltered.txt'.format(lang)
+        os.system(cmd)
+
+    # Remove words we don't want included..
     fo = open( 'filtered.txt', 'w')
     for l in open('unfiltered.txt','r'):
         ls = l.strip()
@@ -61,7 +61,7 @@ rnd = secrets.SystemRandom()
 
 def gen_pwd():
     pwd = ''
-    
+
     for n in range(nWords):
         word = list( rnd.choice(lines))
         for j in range(len(word)):
