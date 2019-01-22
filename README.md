@@ -17,5 +17,5 @@ Please report any issues if you deem this to be in any way an unsafe way to gene
 ## Requirements
 
 - This has only been tested on Linux but should work well on OSX. 
-- Python 3 syntax (should work with Python 2 as well I think)
+- Python 3 syntax (should work with Python 2 as well I think, replace the secrets module with random)
 - aspell and the dictionary of choice (e.g. aspell-is) must be installed
