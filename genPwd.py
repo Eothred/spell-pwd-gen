@@ -8,22 +8,24 @@ nWords      = 3
 # Probability for each character to be upper case:
 probUpper   = 0.5
 # Number of digits between each word:
-nDigits   = 2
+nDigits     = 2
 # Number of special characters after each number:
-nSpecials = 1
-
+nSpecials   = 1
+# The list of special characters to select from:
+# (depending on keyboard layout these may be hard to find)
+specials    = string.punctuation
 # Minimum password length:
-pwd_minlen = 10
+pwd_minlen  = 10
 # Maximum password length:
-pwd_maxlen = 30
+pwd_maxlen  = 30
 
 # The following settings defines the unfiltered - filtered list
 # Take out any words from dictionary containing these characters:
 word_filter = './-'
 # Only pick from words with at least this length:
-wlen_min  = 5
+wlen_min    = 5
 # Only pick from words with at most this length:
-wlen_max  = 8
+wlen_max    = 8
 
 # End of settings
 
@@ -70,7 +72,7 @@ def gen_pwd():
             for i in range(nDigits):
                 pwd += str(rnd.randint(0,9))
             for i in range(nSpecials):
-                pwd += rnd.choice( string.punctuation)
+                pwd += rnd.choice( specials)
     return pwd
 
 pwd = gen_pwd()
