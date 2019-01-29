@@ -21,7 +21,7 @@ pwd_maxlen  = 30
 
 # The following settings defines the unfiltered - filtered list
 # Take out any words from dictionary containing these characters:
-word_filter = './-"'
+word_filter = './-"\''
 # Only pick from words with at least this length:
 wlen_min    = 4
 # Only pick from words with at most this length:
@@ -31,31 +31,31 @@ wlen_max    = 10
 
 # ------
 
-if not os.path.isfile('filtered.txt'):
+if not os.path.isfile('words-{}.txt'.format(lang)):
     # First generate a full list of words from aspell-nb:
-    if not os.path.isfile('unfiltered.txt'):
-        cmd = 'aspell -d {0} dump master | aspell -l {0} expand > unfiltered.txt'.format(lang)
+    if not os.path.isfile('unfiltered-{}.txt'.format(lang)):
+        cmd = 'aspell -d {0} dump master | aspell -l {0} expand > unfiltered-{0}.txt'.format(lang)
         os.system(cmd)
 
     # Remove words we don't want included..
-    fo = open( 'filtered.txt', 'w')
-    for l in open('unfiltered.txt','r'):
-        ls = l.strip()
-        # Remove all very short and very long words:
-        if len(ls) < wlen_min or len(ls) > wlen_max:
-            continue
-        # Remove all words with upper case:
-        if l != l.lower():
-            continue
-        # Remove all words with special characters:
-        if any([i in l.lower() for i in word_filter]):
-            continue
-        fo.write(l)
+    fo = open( 'words-{}.txt'.format(lang), 'w')
+    for l in open('unfiltered-{}.txt'.format(lang),'r'):
+        for ls in l.split():
+            # Remove all very short and very long words:
+            if len(ls) < wlen_min or len(ls) > wlen_max:
+                continue
+            # Remove all words with upper case:
+            if ls != ls.lower():
+                continue
+            # Remove all words with special characters:
+            if any([i in ls.lower() for i in word_filter]):
+                continue
+            fo.write(ls+'\n')
 
-with open('filtered.txt') as f:
+with open('words-{}.txt'.format(lang)) as f:
     lines = f.read().splitlines()
 
-maxN = len(lines)
+print( "Number of words to choose from is", len(lines))
 
 rnd = secrets.SystemRandom()
 
