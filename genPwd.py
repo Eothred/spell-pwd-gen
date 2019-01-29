@@ -31,7 +31,12 @@ wlen_max    = 10
 
 # ------
 
-if not os.path.isfile('words-{}.txt'.format(lang)):
+if os.path.isfile('words.txt'):
+    filename = 'words.txt'
+else:
+    filename = 'words-{}.txt'.format(lang)
+
+if not os.path.isfile(filename):
     # First generate a full list of words from aspell-nb:
     if not os.path.isfile('unfiltered-{}.txt'.format(lang)):
         cmd = 'aspell -d {0} dump master | aspell -l {0} expand > unfiltered-{0}.txt'.format(lang)
@@ -52,7 +57,7 @@ if not os.path.isfile('words-{}.txt'.format(lang)):
                 continue
             fo.write(ls+'\n')
 
-with open('words-{}.txt'.format(lang)) as f:
+with open(filename) as f:
     lines = f.read().splitlines()
 
 print( "Number of words to choose from is", len(lines))
