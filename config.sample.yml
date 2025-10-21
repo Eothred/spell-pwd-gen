@@ -1,0 +1,25 @@
+# The aspell dictionary to select from:
+lang: 'it'
+# Number of words in the password
+nWords: 4
+# Probability for each character to be upper case:
+probUpper: 0.1
+# Number of digits between each word:
+nDigits: 2
+# Number of special characters after each number:
+nSpecials: 0
+# The list of special characters to select from:
+# (depending on keyboard layout these may be hard to find)
+specials: ".,/!?;:" #string.punctuation
+# Minimum password length:
+pwd_minlen: 13
+# Maximum password length:
+pwd_maxlen: 40
+
+# The following settings defines the unfiltered - filtered list
+# Take out any words from dictionary containing these characters:
+word_filter: "./\"üä'"
+# Only pick from words with at least this length:
+wlen_min: 3
+# Only pick from words with at most this length:
+wlen_max: 15
